@@ -17,6 +17,8 @@
 #define WRITE_TIMINGS "write_timings"
 #define SKIP_HOLE_FILLING "skip_hole_filling"
 #define KEEP_UNSEEN_FACES "keep_unseen_faces"
+#define NADIR_MODE    "nadir_mode"
+#define NADIR_WEIGHT    "nadir_weight"
 #define NUM_THREADS "num_threads"
 
 Arguments parse_args(int argc, char **argv) {
@@ -83,6 +85,10 @@ Arguments parse_args(int argc, char **argv) {
         "Skip hole filling [false]");
     args.add_option('\0', KEEP_UNSEEN_FACES, false,
         "Keep unseen faces [false]");
+    args.add_option('\0', NADIR_MODE, false,
+        "Turn on nadir mode [false]");
+    args.add_option('n', NADIR_WEIGHT, 65535.0f,
+        "Set nadir weight [65535]");
     args.add_option('\0', WRITE_TIMINGS, false,
         "Write out timings for each algorithm step (OUT_PREFIX + _timings.csv)");
     args.add_option('\0', NO_INTERMEDIATE_RESULTS, false,
@@ -131,6 +137,9 @@ Arguments parse_args(int argc, char **argv) {
         case 't':
             conf.settings.tone_mapping = parse_choice<tex::ToneMapping>(i->arg);
         break;
+        case 'n':
+            conf.settings.nadir_weight = std::max(0.0f, std::min(i->get_arg<float>(), 4294967295.0f));
+        break;
         case '\0':
             if (i->opt->lopt == SKIP_GEOMETRIC_VISIBILITY_TEST) {
                 conf.settings.geometric_visibility_test = false;
@@ -142,6 +151,8 @@ Arguments parse_args(int argc, char **argv) {
                 conf.settings.hole_filling = false;
             } else if (i->opt->lopt == KEEP_UNSEEN_FACES) {
                 conf.settings.keep_unseen_faces = true;
+            } else if (i->opt->lopt == NADIR_MODE) {
+                conf.settings.nadir_mode = true;
             } else if (i->opt->lopt == WRITE_TIMINGS) {
                 conf.write_timings = true;
             } else if (i->opt->lopt == NO_INTERMEDIATE_RESULTS) {
