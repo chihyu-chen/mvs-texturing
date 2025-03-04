@@ -16,7 +16,7 @@
 #define NO_INTERMEDIATE_RESULTS "no_intermediate_results"
 #define WRITE_TIMINGS "write_timings"
 #define SKIP_HOLE_FILLING "skip_hole_filling"
-#define KEEP_UNSEEN_FACES "keep_unseen_faces"
+#define HIDE_UNSEEN_FACES "hide_unseen_faces"
 #define NUM_THREADS "num_threads"
 
 Arguments parse_args(int argc, char **argv) {
@@ -81,8 +81,8 @@ Arguments parse_args(int argc, char **argv) {
         "Skip local seam leveling (Poisson editing) [false]");
     args.add_option('\0', SKIP_HOLE_FILLING, false,
         "Skip hole filling [false]");
-    args.add_option('\0', KEEP_UNSEEN_FACES, false,
-        "Keep unseen faces [false]");
+    args.add_option('\0', HIDE_UNSEEN_FACES, false,
+        "Hide unseen faces [false]");
     args.add_option('\0', WRITE_TIMINGS, false,
         "Write out timings for each algorithm step (OUT_PREFIX + _timings.csv)");
     args.add_option('\0', NO_INTERMEDIATE_RESULTS, false,
@@ -140,8 +140,8 @@ Arguments parse_args(int argc, char **argv) {
                 conf.settings.local_seam_leveling = false;
             } else if (i->opt->lopt == SKIP_HOLE_FILLING) {
                 conf.settings.hole_filling = false;
-            } else if (i->opt->lopt == KEEP_UNSEEN_FACES) {
-                conf.settings.keep_unseen_faces = true;
+            } else if (i->opt->lopt == HIDE_UNSEEN_FACES) {
+                conf.settings.hide_unseen_faces = true;
             } else if (i->opt->lopt == WRITE_TIMINGS) {
                 conf.write_timings = true;
             } else if (i->opt->lopt == NO_INTERMEDIATE_RESULTS) {

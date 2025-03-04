@@ -555,7 +555,7 @@ generate_texture_patches(UniGraph const & graph, mve::TriangleMesh::ConstPtr mes
             if (success) {
                 num_patches += 1;
             } else {
-                if (settings.keep_unseen_faces) {
+                if (!settings.hide_unseen_faces) {
                     #pragma omp critical
                     unseen_faces.insert(unseen_faces.end(),
                         subgraph.begin(), subgraph.end());
