@@ -1,4 +1,6 @@
 build/
-elibs/
-!elibs/CMakeLists/*
+elibs/*
 !elibs/CMakeLists.txt
+!elibs/tbb/
+elibs/tbb/*
+!elibs/tbb/FindTBB.cmake
