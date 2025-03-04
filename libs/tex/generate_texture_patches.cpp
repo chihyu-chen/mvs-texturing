@@ -565,6 +565,9 @@ generate_texture_patches(UniGraph const & graph, mve::TriangleMesh::ConstPtr mes
 
         if (!unseen_faces.empty()) {
             mve::FloatImage::Ptr image = mve::FloatImage::create(3, 3, 3);
+            math::Vec3f color{0.0f, 0.0f, 0.0f};
+            image->fill_color(*color);
+
             std::vector<math::Vec2f> texcoords;
             for (std::size_t i = 0; i < unseen_faces.size(); ++i) {
                 math::Vec2f projections[] = {{2.0f, 1.0f}, {1.0f, 1.0f}, {1.0f, 2.0f}};
